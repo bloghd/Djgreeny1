@@ -2,6 +2,8 @@ from django.db import models
 from django.utils.translation import gettext as _
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.utils.text import slugify
+from taggit.managers import TaggableManager
 
 # Create your models here.
 FLAG_TYPE =(
@@ -24,10 +26,15 @@ class Product(models.Model):
     brand = models.ForeignKey("Brand", verbose_name=_("Brand"), related_name='product_brand',on_delete=models.SET_NULL, null=True, blank=True)
     category = models.ForeignKey("Category", verbose_name=_("Category"), related_name='product_category',on_delete=models.SET_NULL, null=True, blank=True)
     price = models.FloatField(_("Price"))
+    tags = TaggableManager(blank=True)
     desc = models.TextField(_("Descrption"), max_length=10000)
     flag = models.CharField(_("Flag"), max_length=15, choices=FLAG_TYPE)
+    slug = models.SlugField(_("Slug"), null=True, blank=True)
 
     
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Product, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = _("Product")
@@ -39,6 +46,12 @@ class Product(models.Model):
 class Brand(models.Model):
     name = models.CharField(_("Name"), max_length=50)
     image = models.ImageField(_("Image"), upload_to='Brand/')
+    slug = models.SlugField(_("Slug"), null=True, blank=True)
+
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Brand, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = _("Brand")
@@ -54,7 +67,7 @@ class Category(models.Model):
 
     class Meta:
         verbose_name = _("Category")
-        verbose_name_plural = _("Categorys")
+        verbose_name_plural = _("Categories")
 
     def __str__(self):
         return self.name

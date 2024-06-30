@@ -31,14 +31,18 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "taggit",
+    'django_summernote',
     'products',
     'orders',
+    'settings',
 ]
 
 MIDDLEWARE = [
@@ -129,3 +133,13 @@ MEDIA_ROOT = BASE_DIR / "media"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Email Settings
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'raafatmahmoud4600@gmail.com'
+EMAIL_HOST_PASSWORD = 'puft uoqr aznr kjbo'
+
+#LOGIN_REDIRECT_URL = "/"  # new
+
+AUTHENTICATION_BACKENDS = ['accounts.backends.EmailBackend']

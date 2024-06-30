@@ -1,13 +1,9 @@
 from django.db import models
 from django.utils.translation import gettext as _
 from django.utils import timezone
-import random
 from products.models import Product
-def generaste_code(length=8):
-    numbers = '0123456789'
-    return ''.join(random.choice(numbers) for _ in range (length))
-
-ORDER_STATUS=(
+from utils.code import generaste_code
+ORDER_STATUS = (
     ('Recieved','Recieved'),
     ('Processod','Processod'),
     ('Shipped','Shipped'),
