@@ -44,7 +44,9 @@
 
         <!-- CUSTOM -->
         <link rel="stylesheet" href="{% static "css/main.css" %}">
-        <link rel="stylesheet" href="{% static "css/index.css" %}">
+        {% block static %}
+            <link rel="stylesheet" href="{% static "css/index.css" %}">
+        {% endblock static %}
         <!--=====================================
                     CSS LINK PART END
         =======================================-->
@@ -173,6 +175,29 @@
                                                     <div class="col">
                                                         <div class="megamenu-wrap">
                                                             <h5 class="megamenu-title">{{category.name}}</h5>
+                                                            <ul class="megamenu-list">
+                                                                <li><a href="#">carrot</a></li>
+                                                                <li><a href="#">broccoli</a></li>
+                                                                <li><a href="#">asparagus</a></li>
+                                                                <li><a href="#">cauliflower</a></li>
+                                                                <li><a href="#">eggplant</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="navbar-item dropdown-megamenu">
+                                    <a class="navbar-link dropdown-arrow" href="#">Brand</a>
+                                    <div class="megamenu">
+                                        <div class="container megamenu-scroll">
+                                            <div class="row row-cols-5">
+                                                {% for brand in brands %}
+                                                    <div class="col">
+                                                        <div class="megamenu-wrap">
+                                                            <h5 class="megamenu-title">{{brand.name}}</h5>
                                                             <ul class="megamenu-list">
                                                                 <li><a href="#">carrot</a></li>
                                                                 <li><a href="#">broccoli</a></li>
